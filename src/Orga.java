@@ -19,53 +19,68 @@ public class Orga {
 		
 	}
 	
-	public void fromNachricht1(){
+	public String fromNachricht1(){
+		String ent = null;
 		try{
 			FileReader fr = new FileReader("Nachricht1.txt");
 			BufferedReader br = new BufferedReader(fr);
 			
-			String str;
-			while((str=br.readLine()) != null){
-				Entrauschen et = new Entrauschen((float)0.7,6,false,str); 
-				System.out.println(et.decoden());
-			}		
+
+			Entrauschen et = new Entrauschen((float)0.7,6,false,br.readLine()); 
+			ent = et.decoden();
+			
+			System.out.println("Entrauschte Nachricht 1 :");
+			System.out.println(ent);
+		
 			br.close();
 		}catch (IOException e){
 			out.println("File not found");
 		}
+		return ent;
 	}
 	
-	public void fromNachricht2(){
+	public String fromNachricht2(){
+		String ent = null;
 		try{
 			FileReader fr = new FileReader("Nachricht2.txt");
 			BufferedReader br = new BufferedReader(fr);
 			
-			String str;
-			while((str=br.readLine()) != null){
-				Entrauschen et = new Entrauschen((float)0.9,11,false,str); 
-				System.out.println(et.decoden());
-			}		
+			Entrauschen et = new Entrauschen((float)0.9,11,false,br.readLine()); 
+			ent = et.decoden();
+			
+			System.out.println("Entrauschte Nachricht 2 :");
+			System.out.println(ent);
+	
 			br.close();
 		}catch (IOException e){
 			out.println("File not found");
 		}
+		return ent;
 	}
 	
 	public String start(){
 		Nachricht nr=new Nachricht((float)0.7,6,true,"wettbewerb");
+		System.out.println("Verrauschte Nachricht : Wettbewerb:");
 		System.out.println(nr.durchf());
 		return nr.durchf();
 	}
 	
 	public void output(){
 		try{
-			//FileWriter fw = new FileWriter("Wettbewerb.txt");
-			PrintWriter pw = new PrintWriter("Wettbewerb.txt");
+			PrintWriter wb = new PrintWriter("Wettbewerb.txt");
+			PrintWriter et1 = new PrintWriter("Entrauschen1.txt");
+			PrintWriter et2 = new PrintWriter("Entrauschen2.txt");
+						
+			wb.println(start());
+			System.out.println("Wettbewerb.txt has been created \n");
+			et1.println(fromNachricht1());
+			System.out.println("Entrauschen1.txt has been created \n");
+			et2.println(fromNachricht2());
+			System.out.println("Entrauschen2.txt has been created \n");
 			
-			//Nachricht nr=new Nachricht((float)0.7,6,true,"wettbewerb");			
-			pw.println(start());
-			
-			pw.close();
+			wb.close();
+			et1.close();
+			et2.close();
 		}catch (IOException e){
 			out.println("Error");
 		}
